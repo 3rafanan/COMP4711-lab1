@@ -10,7 +10,7 @@ and open the template in the editor.
     </head>
     <body>
         <?php
-        echo "COMP4711 Lab 1";
+        echo "<h1>COMP4711 Lab 1</h1>";
 
         include('student.php');
 
@@ -49,8 +49,25 @@ and open the template in the editor.
 
         ksort($students);
 
-        foreach($students as $student)
-            echo $student->toString();
+        echo "<pre><b>Student Name\t\t\tAverage\t\t\tEmail Address\n</b></pre>";
+        echo "<pre>_______________________________________________________________________________________</pre>";
+        foreach($students as $student) {
+            $line = $student->surname . ' ' . $student->first_name . "\t\t\t";
+            $line .= $student->average() . "\t\t\t";
+            $first_flag = 1;
+            foreach ($student->emails as $which => $what){
+                if($first_flag == 1) {
+                    $line .= $which . ":\t " . $what . "\n";
+                    $first_flag = 0;
+                }
+                else {
+                    $line .= "\t\t\t\t\t\t\t" . $which . ":\t " . $what . "\n";
+                }
+            }
+            $line .= "---------------------------------------------------------------------------------------";
+            echo "<pre>$line</pre>";
+
+        }
         ?>
     </body>
 </html>
